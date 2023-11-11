@@ -2,10 +2,13 @@ import string
 
 
 def password_validator(value):
-    password = str(value)
     result = True
+    password = str(value)
 
     if 5 > len(password):
+        result = False
+
+    if 12 < len(password):
         result = False
 
     if not any(digit.isdigit() for digit in password):

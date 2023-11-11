@@ -11,6 +11,7 @@ def buy_animal_final():
         text=text,
         font=('Comic Sans MS', 15, 'bold'),
         fill="green",
+        state=""
     )
 
     frame.create_text(

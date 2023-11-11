@@ -1,5 +1,7 @@
 from json import loads, dump
 from tkinter import Entry, Button
+
+from Animal_Shop.pass_hashing import hash_pass
 from animals_page import display_animals
 from validator import password_validator
 from main import frame, root
@@ -29,7 +31,7 @@ def entry():
         width=25,
         height=5,
         command=register,
-    )
+    ),
 
     login_button = Button(
         root,
@@ -50,6 +52,7 @@ def entry():
         text="Welcome to Animal Shop",
         font=('Helvetica', 18, 'bold'),
         fill='black',
+
     )
     return frame
 
@@ -62,22 +65,20 @@ def register():
         50,
         text="First name:",
         font=('Helvetica', 12, 'bold'),
-    )
 
+    )
     frame.create_text(
         100,
         100,
         text="Last name:",
         font=('Helvetica', 12, 'bold'),
     )
-
     frame.create_text(
         100,
         150,
         text="Username:",
         font=('Helvetica', 12, 'bold'),
     )
-
     frame.create_text(
         100,
         200,
@@ -92,7 +93,6 @@ def register():
         height=25,
         width=150,
     )
-
     frame.create_window(
         230,
         100,
@@ -100,7 +100,6 @@ def register():
         height=25,
         width=150,
     )
-
     frame.create_window(
         230,
         150,
@@ -145,11 +144,12 @@ def register():
 
 
 def registration():
+
     information_dict = {
         "first_name": first_name_entry_box.get(),
         "last_name": last_name_entry_box.get(),
         "username": username_entry_box.get(),
-        "password": password_entry_box.get(),
+        "password": hash_pass(password_entry_box.get()),
         "animals": []
     }
 
@@ -179,7 +179,6 @@ def check_registration(info):
                     fill="red",
                     tags="error"
                 )
-                return False
 
         if element.strip() == '':
             frame.create_text(
@@ -192,6 +191,7 @@ def check_registration(info):
             return False
     frame.delete("error")
 
+    # Jason file needs to be on one line!
     info_data = get_users_data()
     for i in range(len(info_data)):
         if info_data[i]['username'] == info['username']:
@@ -216,7 +216,6 @@ def login():
         text="Username:",
         font=('Helvetica', 12, 'bold'),
     )
-
     frame.create_text(
         100,
         200,
@@ -231,7 +230,6 @@ def login():
         height=25,
         width=150,
     )
-
     frame.create_window(
         230,
         200,
@@ -239,7 +237,6 @@ def login():
         height=25,
         width=150,
     )
-
     logging_button = Button(
         root,
         text="Login",
@@ -277,8 +274,7 @@ def login_success():
 
     else:
         frame.create_text(
-            200,
-            300,
+            200, 300,
             text="Invalid username or password",
             fill="red",
         )
@@ -290,7 +286,7 @@ def check_loging():
         username = info_data[i]["username"]
         password = info_data[i]["password"]
 
-        if username == username_entry_box.get() and password == password_entry_box.get():
+        if username == username_entry_box.get() and password == hash_pass(password_entry_box.get()):
             return True
     return False
 

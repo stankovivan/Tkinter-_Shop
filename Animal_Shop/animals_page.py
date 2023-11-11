@@ -10,7 +10,7 @@ from cleaner import screen_clean
 def display_animals():
     screen_clean()
     display_stocks()
-    cart_buy()
+    card_buy()
 
 
 def display_stocks():
@@ -23,6 +23,9 @@ def display_stocks():
         y = 50
     for item_name, item_stock in info.items():
         item_image = ImageTk.PhotoImage(Image.open(item_stock["image"]))
+
+        # Трябва да се запази референция за да се визуализира снимката.
+
         images.append(item_image)
 
         frame.create_text(
@@ -31,13 +34,11 @@ def display_stocks():
             text=item_name,
             font=("Comic Sans MS", 15)
         )
-
         frame.create_image(
             x,
             y + 100,
             image=item_image
         )
-
         if item_stock["quantity"] > 0:
             message = f"In stock: {item_stock['quantity']}"
             color = "green"
@@ -51,9 +52,7 @@ def display_stocks():
                 width=5,
                 command=lambda item_name=item_name: buy_product(item_name)
             )
-
             frame.create_window(x, y + 230, window=item_button)
-
         else:
             color = "red"
             message = "Out of stock"
@@ -82,9 +81,9 @@ def buy_product(product):
 images = []
 
 
-def cart_buy():
+def card_buy():
     current_image = ImageTk.PhotoImage(Image.open("images/cat_cart.png").resize((40, 40)))
-    cart_buy_list.append(current_image)
+    cart_buy.append(current_image)
     button = Button(
         root,
         image=current_image,
@@ -95,4 +94,4 @@ def cart_buy():
     frame.create_window(600, 480, window=button)
 
 
-cart_buy_list = []
+cart_buy = []

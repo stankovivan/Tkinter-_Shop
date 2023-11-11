@@ -5,7 +5,7 @@ def run_program():
     root = Tk()
     root.geometry('750x560')
     root.title("Animal Shop")
-    root.iconbitmap("images/bone.ico")
+    root.iconbitmap("images/pawss.ico")
     root.resizable(False, False)
 
     return root
